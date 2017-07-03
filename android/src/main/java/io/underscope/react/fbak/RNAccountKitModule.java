@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import com.facebook.accountkit.PhoneNumber;
 import com.facebook.accountkit.AccessToken;
 import com.facebook.accountkit.Account;
 import com.facebook.accountkit.AccountKit;
@@ -217,8 +218,9 @@ public class RNAccountKitModule extends ReactContextBaseJavaModule implements Ac
         }
 
         String initialPhone = this.options.getString("initialPhone");
-        if (initialPhone != null && !initialPhone.isEmpty()) {
-          configurationBuilder.setInitialPhone(initialPhone);
+        String initialCountryCode = this.options.getString("initialCountryCode");
+        if (initialPhone != null && !initialPhone.isEmpty() && initialCountryCode != null && !initialCountryCode.isEmpty()) {
+          configurationBuilder.setInitialPhoneNumber(new PhoneNumber(initialCountryCode, initialPhone));
         }
 
         configurationBuilder.setFacebookNotificationsEnabled(
